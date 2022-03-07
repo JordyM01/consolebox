@@ -1,6 +1,3 @@
-from pkgutil import iter_modules
-from collections.abc import Iterable, Iterator
-from typing_extensions import Self
 from .item import Item
 
 class ItemList(object):

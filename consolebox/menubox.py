@@ -5,12 +5,13 @@ from .keyboard import Keyboard
 from .keylist import KeyList
 from types import FunctionType
 from typing import Any
+from colorama import init
 
 
 class MenuBox():
 
     def __init__(self, items: dict[int,str], option: dict[int, FunctionType], attributes: dict[str,Any]):
-
+        init()
         self.options = option
 
         self.menu_attributes: dict[str, Any] = {
@@ -26,7 +27,7 @@ class MenuBox():
             "Title": "Main menu",  # Title text max 36 characters
             "color_box": "GREEN",
             "color_text": "GREEN",
-            "color_background": "BLACK",
+            "color_background": "DEFAULT",
             "color_selecter": "BLUE",
             "color_menu_box": "",
             "color_title_box": "",
@@ -234,6 +235,7 @@ class MenuBox():
     def show(self) -> None:
         size: int = self.menu_attributes["size"]
         columns: int = self.menu_attributes["columns"]
+        previus_manual: int = 0
         control: tuple[int,int]
         Style.clear()
         keylist = KeyList(size, columns)
@@ -242,15 +244,25 @@ class MenuBox():
         self.static_menu()
 
         while True:
-            control = keylist.listening()
+            control = keylist.listening(previus_manual)
+            previus_manual = 0 # Reset previus to its default state
             if control[1] == 0:
-                if control[0] == 0:
+                if control[0] == -1: # Sentry that controls the exit
                     break
-                else:
-                    self.sub_menu(control[0])
+                elif control[0] > 0:
+                    previus_manual = 1 # Control the previous selection from the menubox to avoid bugs
+            elif control[1] == -2: # sentinel controlling enter
+                if control[0] > 0:
+                        self.sub_menu(control[0])
+            elif control[1] > 0:
+                if control[0] == 0:
+                    self.menu(1, control[1]) # Element zero does not exist so element one is selected
+                elif control[0] > 0:
+                    self.menu(control[0], control[1])
             else:
-                self.menu(control[0], control[1])
-            Style.cursoroff()
+                continue
+            Style.cursoroff() # Hide the courses
+        Style.cursoron() # Show the cursor at the end of the program
 
 
 

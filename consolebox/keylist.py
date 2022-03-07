@@ -10,10 +10,13 @@ class KeyList():
         self.half_size: int = int(size / columns)
         self.menu_counter: int = 0
         self.previous: int = 1
-        self.option: int
+        self.option: int = 0
 
-    def listening(self):
+    def listening(self, previus_manual: int = 0):
         value: tuple[int,int]
+
+        if previus_manual:
+            self.previous = previus_manual
 
         self.option = self.keyboard.read()
 
@@ -52,14 +55,14 @@ class KeyList():
 
 
         elif self.option == 13:  # Enter key
-            value = (self.menu_counter, 0)
+            value = (self.menu_counter, -2)
             return value
 
         elif self.option == 8 or self.option == 127:  # Backspace key
             Style.gotoxy(1, 20)
             print('Coming out...')
             Style.gotoxy(1, 21)
-            value = (0,0)
+            value = (-1,0)
             return value
 
         value = (self.menu_counter, self.previous)

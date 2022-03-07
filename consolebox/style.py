@@ -1,4 +1,5 @@
 from .keyboard import Keyboard
+from colorama import init
 
 class Style():
     low_color_text: dict[str,int] = {
@@ -9,7 +10,8 @@ class Style():
         "BLUE" : 34,
         "MAGENTA" : 35,
         "CYAN" : 36,
-        "WHITE" : 37
+        "WHITE" : 37,
+        "DEFAULT": 00
     }
     high_color_text: dict[str,int] = {
         "BLACK" : 90,
@@ -19,7 +21,8 @@ class Style():
         "BLUE" : 94,
         "MAGENTA" : 95,
         "CYAN" : 96,
-        "WHITE" : 97
+        "WHITE" : 97,
+        "DEFAULT": 00
     }
     low_color_background: dict[str,int] = {
         "BLACK" : 40,
@@ -29,7 +32,8 @@ class Style():
         "BLUE" : 44,
         "MAGENTA" : 45,
         "CYAN" : 46,
-        "WHITE" : 47
+        "WHITE" : 47,
+        "DEFAULT": 00
     }
     high_color_background: dict[str,int] = {
         "BLACK" : 100,
@@ -39,10 +43,12 @@ class Style():
         "BLUE" : 104,
         "MAGENTA" : 105,
         "CYAN" : 106,
-        "WHITE" : 107
+        "WHITE" : 107,
+        "DEFAULT": 00
     }
 
-    def __ini__(self):
+    def __init__(self):
+        init()
         self.keyboard = Keyboard()
 
     """Clean screen with ANSI Scape Sequence"""
