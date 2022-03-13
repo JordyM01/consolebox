@@ -53,14 +53,14 @@ class Style():
 
     """Clean screen with ANSI Scape Sequence"""
     @classmethod
-    def clear(cls) -> None: return print("\033[2J\033[1;1f")
+    def clear(cls): return print("\033[2J\033[1;1f")
     """Position the pointer at the x and y coordinates with ANSI Scape Sequence"""
 
     @classmethod
-    def cursoroff(cls) -> None: return print("\033[?25l")
+    def cursoroff(cls): return print("\033[?25l")
 
     @classmethod
-    def cursoron(cls) -> None: return print("\033[?25h")
+    def cursoron(cls): return print("\033[?25h")
 
     @classmethod
     def get_cursorposition(cls): # Not functional

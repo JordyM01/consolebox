@@ -77,7 +77,7 @@ class MenuBox():
 
         self.item_list = ItemList(items)
 
-    def pause_class(self, msg, option = 0) -> None:
+    def pause_class(self, msg, option = 0):
         """Pause the program"""
         print(msg)
         self.keyboard.read()
@@ -86,7 +86,7 @@ class MenuBox():
         self.static_menu()
         self.menu(option, 1)
 
-    def static_menu(self) -> None:
+    def static_menu(self):
         """Menu interface"""
         Style.lowvideo(self.menu_attributes["color_text"],
                             self.menu_attributes["color_background"]) # Color text
@@ -99,7 +99,7 @@ class MenuBox():
         x = 0  # regulates the printing on the x-axis representing the column
 
         # Print headers
-        if self.menu_attributes != None:
+        if self.menu_attributes["header"] != None:
             if type(self.menu_attributes["header"]) == FunctionType:
                 Style.gotoxy(1,1)
                 self.menu_attributes["header"]()
@@ -176,7 +176,7 @@ class MenuBox():
             Style.printxy(position[0], position[1], msg)
 
 
-    def menu(self, options, previous) -> None:
+    def menu(self, options, previous):
         self.view(previous)
         self.select(options)
 
@@ -207,7 +207,7 @@ class MenuBox():
         Style.lowvideo(self.menu_attributes["color_menu_text"],
                             self.menu_attributes["color_background"])
 
-    def sub_menu(self, option) -> None:
+    def sub_menu(self, option):
         position = self.row_printing
         size = self.menu_attributes["size"]
         columns = self.menu_attributes["columns"]
@@ -229,7 +229,7 @@ class MenuBox():
 
     # --------------------------------------------------------------------------------
 
-    def show(self) -> None:
+    def show(self):
         size = self.menu_attributes["size"]
         columns = self.menu_attributes["columns"]
         previus_manual = 0
