@@ -4,33 +4,33 @@ from .style import Style
 
 class Box():
 
-    def __init__(self, box_attributes, row_printing = 1):
-        self.box_attributes = box_attributes
-        self.row_printing = row_printing
-        self.position = {
+    def __init__(self, box_attributes: dict[str, Any], row_printing: int = 1):
+        self.box_attributes: dict[str,Any] = box_attributes
+        self.row_printing: int = row_printing
+        self.position: dict[str,int] = {
             # "up" : 1,
             # "down" : 25,
             "centered": 15,
             "left": 1,
             "right": 47
         }
-        self.side = ["up", "down", "left", "center", "right"]
-        self.corner = ["corner_left_up", "corner_right_up",
+        self.side: list[str] = ["up", "down", "left", "center", "right"]
+        self.corner: list[str] = ["corner_left_up", "corner_right_up",
                              "corner_left_down", "corner_right_down"]
-        self.intersec = ["inter_left",
+        self.intersec: list[str] = ["inter_left",
                                "inter_right", "inter_up", "inter_down"]
 
     def show(self) -> None:
         # Point from which to start printing
-        alig = self.position[self.box_attributes["alignment"]]
-        length = self.box_attributes["length"]  # Table size to print
-        size = self.box_attributes["size"]
-        columns = self.box_attributes["columns"]
-        half_size = int(size / columns)
-        half_length = int(length / columns)
-        cor = 0
-        z = 0
-        x = 0  # regulates the printing on the x-axis representing the column
+        alig: int = self.position[self.box_attributes["alignment"]]
+        length: int = self.box_attributes["length"]  # Table size to print
+        size: int = self.box_attributes["size"]
+        columns: int = self.box_attributes["columns"]
+        half_size: int = int(size / columns)
+        half_length: int = int(length / columns)
+        cor: int = 0
+        z: int = 0
+        x: int = 0  # regulates the printing on the x-axis representing the column
 
         if (size % columns) >= 1: # if the number of columns is odd add one to half_size
             half_size += 1

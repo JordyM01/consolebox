@@ -10,11 +10,11 @@ from colorama import init
 
 class MenuBox():
 
-    def __init__(self, items, option, attributes):
+    def __init__(self, items: dict[int,str], option: dict[int, FunctionType], attributes: dict[str,Any]):
         init()
         self.options = option
 
-        self.menu_attributes = {
+        self.menu_attributes: dict[str, Any] = {
             "length": 65,  # Broad min 40 max 90
             "start" : 1,
             "size": len(items),  # Quantity of items
@@ -63,7 +63,7 @@ class MenuBox():
         for i in attributes: # Data dump
             self.menu_attributes[i] = attributes[i]
 
-        self.position = {
+        self.position: dict[str,int] = {
             # "up" : 1,
             # "down" : 25,
             "centered": 15,
@@ -73,11 +73,11 @@ class MenuBox():
 
         self.keyboard = Keyboard() # For read keyboard
 
-        self.row_printing = self.menu_attributes['start']  # pointer_position_row
+        self.row_printing: int = self.menu_attributes['start']  # pointer_position_row
 
         self.item_list = ItemList(items)
 
-    def pause_class(self, msg, option = 0) -> None:
+    def pause_class(self, msg: str, option: int = 0) -> None:
         """Pause the program"""
         print(msg)
         self.keyboard.read()
@@ -92,11 +92,11 @@ class MenuBox():
                             self.menu_attributes["color_background"]) # Color text
 
         # Point from which to start printing
-        alig = self.position[self.menu_attributes["alignment"]]
-        length = self.menu_attributes["length"]  # Table size to print
-        size = self.menu_attributes["size"]
-        z = 0
-        x = 0  # regulates the printing on the x-axis representing the column
+        alig: int = self.position[self.menu_attributes["alignment"]]
+        length: int = self.menu_attributes["length"]  # Table size to print
+        size: int = self.menu_attributes["size"]
+        z: int = 0
+        x: int = 0  # regulates the printing on the x-axis representing the column
 
         # Print headers
         if self.menu_attributes != None:
@@ -109,7 +109,7 @@ class MenuBox():
         # Title
         x = alig  # regulates the printing on the x-axis representing the column
         if self.menu_attributes["title"]:
-            title_attributes = {
+            title_attributes: dict[str,Any]={
                 "length": self.menu_attributes["length"],
                 "start" : self.row_printing,
                 "size": 1,
@@ -167,6 +167,8 @@ class MenuBox():
             self.position[self.menu_attributes['alignment']]
         )
 
+        msg: str
+        position: tuple[int,int]
         for i in range(1, size + 1): # Print the items
             if self.menu_attributes["enumerate"]:
                 msg = f"    {i}. {self.item_list[i - 1]}"
@@ -176,12 +178,13 @@ class MenuBox():
             Style.printxy(position[0], position[1], msg)
 
 
-    def menu(self, options, previous) -> None:
+    def menu(self, options: int, previous: int) -> None:
         self.view(previous)
         self.select(options)
 
-    def view(self, item):
-        position = self.item_list[item - 1].getposition
+    def view(self, item: int):
+        msg: str
+        position: tuple[int,int] = self.item_list[item - 1].getposition
         if self.menu_attributes["enumerate"]:
             msg = f"    {item}. {self.item_list[item - 1]}"
         else:
@@ -191,9 +194,10 @@ class MenuBox():
                             self.menu_attributes["color_background"])
         Style.printxy(position[0], position[1], msg)
 
-    def select(self, item):
-        position = self.item_list[item - 1].getposition
-        indi = self.menu_attributes["indicator"]
+    def select(self, item: int):
+        msg: str
+        position: tuple[int,int] = self.item_list[item - 1].getposition
+        indi: str = self.menu_attributes["indicator"]
         if self.menu_attributes["enumerate"]:
             msg = f" {indi} {item}. {self.item_list[item - 1]}"
         else:
@@ -207,11 +211,11 @@ class MenuBox():
         Style.lowvideo(self.menu_attributes["color_menu_text"],
                             self.menu_attributes["color_background"])
 
-    def sub_menu(self, option) -> None:
-        position = self.row_printing
-        size = self.menu_attributes["size"]
-        columns = self.menu_attributes["columns"]
-        half_size = int((size/columns) + 0.5)
+    def sub_menu(self, option: int) -> None:
+        position: int = self.row_printing
+        size: int = self.menu_attributes["size"]
+        columns: int = self.menu_attributes["columns"]
+        half_size: int = int((size/columns) + 0.5)
 
         position += int(half_size)
         if self.menu_attributes["title"]:
@@ -230,9 +234,10 @@ class MenuBox():
     # --------------------------------------------------------------------------------
 
     def show(self) -> None:
-        size = self.menu_attributes["size"]
-        columns = self.menu_attributes["columns"]
-        previus_manual = 0
+        size: int = self.menu_attributes["size"]
+        columns: int = self.menu_attributes["columns"]
+        previus_manual: int = 0
+        control: tuple[int,int]
         Style.clear()
         keylist = KeyList(size, columns)
 

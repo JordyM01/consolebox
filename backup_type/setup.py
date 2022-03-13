@@ -5,7 +5,7 @@ readme = open("./README.md", "r")
 setup(
     name='consolebox',
     packages=['consolebox'],
-    version='0.4',
+    version='0.3',
     license='LGPL v3',
     description='A library for creating frames in the console',
     author='JordyM01',

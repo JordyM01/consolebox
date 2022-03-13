@@ -1,24 +1,24 @@
 
 class Item():
-    quantity: int = 0 # Number of items
+    quantity = 0 # Number of items
 
-    def __init__(self, name: str, index: int):
-        self.name: str = name
-        self.index: int = index
-        self._position: tuple[int,int] = (1,1)
+    def __init__(self, name , index):
+        self.name = name
+        self.index = index
+        self._position = (1,1)
         self.quantity += 1
 
-    def __len__(self) -> int:
+    def __len__(self):
         return len(self.name)
 
-    def __str__(self) -> str:
+    def __str__(self):
         return self.name
 
     @property
-    def getposition(self) -> tuple[int,int]:
+    def getposition(self):
         return self._position
 
-    def _setposition(self, position: tuple[int,int]) -> None:
+    def _setposition(self, position):
         self._position = position
 
 

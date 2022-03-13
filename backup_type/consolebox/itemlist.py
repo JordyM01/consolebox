@@ -1,10 +1,10 @@
 from .item import Item
 
 class ItemList(object):
-    _quantity = 0
-    _cont = 0
+    _quantity: int = 0
+    _cont: int = 0
 
-    def __init__(self, items):
+    def __init__(self, items: dict[int,str]):
         self._list: list[Item] = []
         for i in items:
             self._list.append(
@@ -12,16 +12,18 @@ class ItemList(object):
             )
             self._quantity += 1
 
-    def setposition(self, length, columns, start = 1, alignment = 1):
+    def setposition(self, length: int, columns: int, start: int = 1, alignment: int = 1) -> None:
         # Point from which to start printing
-        items = self._quantity
-        half_size = int(items / columns)
-        half_length = int(length / columns)
+        items: int = self._quantity
+        posit: tuple[int,int]
+        half_size: int = int(items / columns)
+        half_length: int = int(length / columns)
 
-        x = alignment + 1  # We start from the alignment # regulates the printing on the x-axis representing the column
-        z = 0
-        colum = columns
-        w = 0
+        x: int = alignment + 1  # We start from the alignment # regulates the printing on the x-axis representing the column
+        z: int = 0
+        colum: int = columns
+        w: int = 0
+        cont: int
 
         for _ in range(0, columns):
             cont = start
@@ -36,7 +38,7 @@ class ItemList(object):
             x += half_length
             z = half_size + 1
 
-    def List(self, index) -> Item:
+    def List(self, index: int) -> Item:
         return self._list[index]
 
     def __iter__(self):
@@ -51,7 +53,7 @@ class ItemList(object):
 
     def __str__(self):
         _string: str = ''
-        cont = 0
+        cont: int = 0
         for item in self._list:
             cont += 1
             _string = _string + item.name
@@ -65,7 +67,7 @@ class ItemList(object):
     def __repr__(self):
         return repr(self)
 
-    def __getitem__(self, index):
+    def __getitem__(self, index: int):
         if isinstance(index, (int, slice)):
             return self._list[index]
         return [self._list[i] for i in index]
