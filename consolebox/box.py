@@ -5,27 +5,27 @@ from .style import Style
 class Box():
 
     def __init__(self, box_attributes, row_printing = 1):
-        self.box_attributes = box_attributes
-        self.row_printing = row_printing
-        self.position = {
+        self._box_attributes = box_attributes
+        self._row_printing = row_printing
+        self._position = {
             # "up" : 1,
             # "down" : 25,
             "centered": 15,
             "left": 1,
             "right": 47
         }
-        self.side = ["up", "down", "left", "center", "right"]
-        self.corner = ["corner_left_up", "corner_right_up",
+        self._side = ["up", "down", "left", "center", "right"]
+        self._corner = ["corner_left_up", "corner_right_up",
                              "corner_left_down", "corner_right_down"]
-        self.intersec = ["inter_left",
+        self._intersec = ["inter_left",
                                "inter_right", "inter_up", "inter_down"]
 
-    def show(self) -> None:
+    def show(self) -> None: # Print the frame on the screen
         # Point from which to start printing
-        alig = self.position[self.box_attributes["alignment"]]
-        length = self.box_attributes["length"]  # Table size to print
-        size = self.box_attributes["size"]
-        columns = self.box_attributes["columns"]
+        alig = self._position[self._box_attributes["alignment"]]
+        length = self._box_attributes["length"]  # Table size to print
+        size = self._box_attributes["size"]
+        columns = self._box_attributes["columns"]
         half_size = int(size / columns)
         half_length = int(length / columns)
         cor = 0
@@ -36,17 +36,17 @@ class Box():
             half_size += 1
 
         # Corner
-        if self.box_attributes["corner"]:
+        if self._box_attributes["corner"]:
             cor = 1
-            y = self.row_printing
+            y = self._row_printing
             for i in range(0, 2):  # Corner up and down
                 x = alig
                 for j in range(0, 2):
                     Style.gotoxy(x, y)
-                    print(self.box_attributes[self.corner[z]], end='')
+                    print(self._box_attributes[self._corner[z]], end='')
                     z += 1
                     x += length - 1
-                if self.box_attributes["title"]:
+                if self._box_attributes["title"]:
                     y += 1 + half_size # y += 3 + half_size
                 else:
                     y += half_size + 1
@@ -55,22 +55,22 @@ class Box():
         for i in range(0, 2):
             # print from print start point + corner to table size - 2 corners
             for j in range(alig + cor, (length + alig) - cor):
-                Style.gotoxy(j, self.row_printing)
-                print(self.box_attributes[self.side[i]], end='')
+                Style.gotoxy(j, self._row_printing)
+                print(self._box_attributes[self._side[i]], end='')
             # the size of the menu / columns + 2 lines of the upper and lower frame
-            self.row_printing += half_size + 1
+            self._row_printing += half_size + 1
 
-        self.row_printing -= (half_size + 1) * 2
+        self._row_printing -= (half_size + 1) * 2
 
         # Intersection
-        if self.box_attributes["intersection"]:
+        if self._box_attributes["intersection"]:
             x = alig
-            z = self.row_printing
+            z = self._row_printing
 
-            if self.box_attributes["title"]:
+            if self._box_attributes["title"]:
                 for i in range(0, 2):
                     Style.gotoxy(x, z)
-                    print(self.box_attributes[self.intersec[i]], end='')
+                    print(self._box_attributes[self._intersec[i]], end='')
                     x += length - 1
 
             x = alig + half_length
@@ -78,21 +78,21 @@ class Box():
                 for i in range(0, columns - 1):
                     for j in range(2, 4):
                         Style.gotoxy(x, z)
-                        print(self.box_attributes[self.intersec[j]], end='')
+                        print(self._box_attributes[self._intersec[j]], end='')
                         z += half_size + 1
-                    z = self.row_printing
+                    z = self._row_printing
                     x += half_length
 
         # Left, center and right line
         x = alig  # regulates the printing on the x-axis representing the column
-        z = 2  # regulate the printing side
+        z = 2  # regulate the printing _side
 
         for i in range(0, columns + 1):
 
             if (i == columns): # increments in the last iteration
                 z += 1
 
-            for j in range((self.row_printing + 1), (self.row_printing + half_size + 1)):
+            for j in range((self._row_printing + 1), (self._row_printing + half_size + 1)):
 
                 if (i == columns):
                     if (length % 2 == 0): # if the length is even
@@ -116,7 +116,7 @@ class Box():
                 else:
                     Style.gotoxy(x, j)
 
-                print(self.box_attributes[self.side[z]], end='')
+                print(self._box_attributes[self._side[z]], end='')
             x +=  half_length
             if i == 0: # increments in the first iteration
                 z += 1

@@ -12,7 +12,7 @@ class ItemList(object):
             )
             self._quantity += 1
 
-    def setposition(self, length, columns, start = 1, alignment = 1):
+    def setposition(self, length, columns, start = 1, alignment = 1) -> None:
         # Point from which to start printing
         items = self._quantity
         half_size = int(items / columns)
@@ -50,7 +50,7 @@ class ItemList(object):
         return self._list[self._cont - 1]
 
     def __str__(self):
-        _string: str = ''
+        _string = ''
         cont = 0
         for item in self._list:
             cont += 1

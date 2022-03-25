@@ -1,11 +1,12 @@
 from types import FunctionType
 from consolebox.menubox import MenuBox # pip install consolebox
 from consolebox.style import Style
+from consolebox.checkbox import CheckBox
 import colorama # pip install colorama
 
 # This code is compatible from python 3.9
 
-def greet() -> None:
+def greet():
     print("hello")
 
 def header():
@@ -19,10 +20,33 @@ def header():
 """)
 
 
-def fuzz() -> None:
+def fuzz():
     print("Here the code of its functions is executed")
 
-def main() -> None:
+def check():
+    items = { # Menu options
+        1 : "Fuzzing web",
+        2 : "Crawler Web",
+        3 : "Scraping Web",
+        4 : "XSS Web",
+        5 : "Sql Injection Web",
+        6 : "Comand Injection Web",
+        7 : "About" }
+
+    attributes = {
+        "corner": True,
+        "enumerate": False,
+        "length": 84,
+        "columns" : 3,
+        "separation_sub_menu": ''
+    }
+
+    list_check: CheckBox = CheckBox(items, attributes)
+    list_options = list_check.show()
+   # print(list_options)
+
+
+def main():
 
     items = { # Menu options
         1 : "Fuzzing web",
@@ -35,12 +59,13 @@ def main() -> None:
 
     options = { # functions that correspond to the menu options the numeric identifier must be the same
         1 : fuzz, # function name without parentheses
+        2: check
     }
 
     attributes = { # Type annotations are optional
             "length" : 84, # Broad min 40 max 90
             "header" : header, # you can pass the name of a function without parentheses or a string
-            "columns" : 2, # Max = 5
+            "columns" : 3, # Max = 5
             "indicator" : ">>", # ==>, *, -, ::, +, @
             "alignment" : "centered", # Right, left, centered
             "enumerate" : True, # True or False
@@ -55,6 +80,7 @@ def main() -> None:
             "color_text": "GREEN", # GREEN, BLUE, RED, BLACK, YELLOW, MAGENTA, CYAN, WHITE
             "color_menu_box": "BLUE", # GREEN, BLUE, RED, BLACK, YELLOW, MAGENTA, CYAN, WHITE
             "color_title_box": "RED", # GREEN, BLUE, RED, BLACK, YELLOW, MAGENTA, CYAN, WHITE
+            "separation_sub_menu": "==============================================================================="
             # ===================================== more options to customize:
             #"color_selecter": "BLUE",
             #"color_menu_box": "",
@@ -82,7 +108,7 @@ def main() -> None:
     }
     # use tab, directional arrows and enter to scroll, backspace to exit
 
-    men = MenuBox(items, options, attributes)
+    men = MenuBox(items, attributes, options)
 
     Style.clear() # Clean screen
     men.show() # show the menu object

@@ -58,8 +58,6 @@ class KeyList():
             return value
 
         elif self.option == 8 or self.option == 127:  # Backspace key
-            Style.gotoxy(1, 20)
-            print('Coming out...')
             Style.gotoxy(1, 21)
             value = (-1,0)
             return value
