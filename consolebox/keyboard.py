@@ -1,7 +1,7 @@
 import os
 
 class Keyboard():
-    quantity = 0
+    quantity: int = 0
 
     def __init__(self):
         self.quantity += 1

@@ -4,33 +4,33 @@ from .style import Style
 
 class Box():
 
-    def __init__(self, box_attributes, row_printing = 1):
-        self._box_attributes = box_attributes
-        self._row_printing = row_printing
-        self._position = {
+    def __init__(self, box_attributes: dict[str, Any], row_printing: int = 1):
+        self._box_attributes: dict[str,Any] = box_attributes
+        self._row_printing: int = row_printing
+        self._position: dict[str,int] = {
             # "up" : 1,
             # "down" : 25,
             "centered": 15,
             "left": 1,
             "right": 47
         }
-        self._side = ["up", "down", "left", "center", "right"]
-        self._corner = ["corner_left_up", "corner_right_up",
+        self._side: list[str] = ["up", "down", "left", "center", "right"]
+        self._corner: list[str] = ["corner_left_up", "corner_right_up",
                              "corner_left_down", "corner_right_down"]
-        self._intersec = ["inter_left",
+        self._intersec: list[str] = ["inter_left",
                                "inter_right", "inter_up", "inter_down"]
 
     def show(self) -> None: # Print the frame on the screen
         # Point from which to start printing
-        alig = self._position[self._box_attributes["alignment"]]
-        length = self._box_attributes["length"]  # Table size to print
-        size = self._box_attributes["size"]
-        columns = self._box_attributes["columns"]
-        half_size = int(size / columns)
-        half_length = int(length / columns)
-        cor = 0
-        z = 0
-        x = 0  # regulates the printing on the x-axis representing the column
+        alig: int = self._position[self._box_attributes["alignment"]]
+        length: int = self._box_attributes["length"]  # Table size to print
+        size: int = self._box_attributes["size"]
+        columns: int = self._box_attributes["columns"]
+        half_size: int = int(size / columns)
+        half_length: int = int(length / columns)
+        cor: int = 0
+        z: int = 0
+        x: int = 0  # regulates the printing on the x-axis representing the column
 
         if (size % columns) >= 1: # if the number of columns is odd add one to half_size
             half_size += 1

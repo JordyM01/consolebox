@@ -6,10 +6,10 @@ import colorama # pip install colorama
 
 # This code is compatible from python 3.9
 
-def greet():
+def greet() -> None:
     print("hello")
 
-def header():
+def header() -> None:
     Style.lowvideo("MAGENTA", "DEFAULT") # From package consolebox
     print(""".___  .__                                        .___      
 |   | |  |   _______  __ ____     ____  ____   __| _/____  
@@ -20,11 +20,11 @@ def header():
 """)
 
 
-def fuzz():
+def fuzz() -> None:
     print("Here the code of its functions is executed")
 
-def check():
-    items = { # Menu options
+def check() -> None:
+    items: dict[int, str] = { # Menu options
         1 : "Fuzzing web",
         2 : "Crawler Web",
         3 : "Scraping Web",
@@ -33,7 +33,7 @@ def check():
         6 : "Comand Injection Web",
         7 : "About" }
 
-    attributes = {
+    attributes: dict[str, int | str] = {
         "corner": True,
         "enumerate": False,
         "length": 84,
@@ -46,9 +46,9 @@ def check():
    # print(list_options)
 
 
-def main():
+def main() -> None:
 
-    items = { # Menu options
+    items: dict[int, str] = { # Menu options
         1 : "Fuzzing web",
         2 : "Crawler Web",
         3 : "Scraping Web",
@@ -57,12 +57,12 @@ def main():
         6 : "Comand Injection Web",
         7 : "About" }
 
-    options = { # functions that correspond to the menu options the numeric identifier must be the same
+    options: dict[int, FunctionType] = { # functions that correspond to the menu options the numeric identifier must be the same
         1 : fuzz, # function name without parentheses
         2: check
     }
 
-    attributes = { # Type annotations are optional
+    attributes: dict[str, int | str] = { # Type annotations are optional
             "length" : 84, # Broad min 40 max 90
             "header" : header, # you can pass the name of a function without parentheses or a string
             "columns" : 3, # Max = 5
@@ -108,7 +108,7 @@ def main():
     }
     # use tab, directional arrows and enter to scroll, backspace to exit
 
-    men = MenuBox(items, attributes, options)
+    men: object = MenuBox(items, attributes, options)
 
     Style.clear() # Clean screen
     men.show() # show the menu object

@@ -3,16 +3,17 @@ from .keyboard import Keyboard
 
 class KeyList():
 
-    def __init__(self, size = 2, columns = 1):
+    def __init__(self, size: int = 2, columns: int = 1):
         self.keyboard = Keyboard()
-        self.size = size
-        self.columns = columns
-        self.half_size = int(size / columns)
-        self.menu_counter = 0
-        self.previous = 1
-        self.option = 0
+        self.size: int = size
+        self.columns: int = columns
+        self.half_size: int = int(size / columns)
+        self.menu_counter: int = 0
+        self.previous: int = 1
+        self.option: int = 0
 
-    def listening(self, previus_manual = 0):
+    def listening(self, previus_manual: int = 0):
+        value: tuple[int,int]
 
         if previus_manual:
             self.previous = previus_manual
